@@ -73,19 +73,18 @@ Despite channel noise and quantization, the reconstructed image maintains high v
 
 ---
 
-## Result Visualizations
+### BER vs SNR
+<img src="input_ber_vs_snr.png" width="450"/>
 
 ### BER vs ADC Resolution
-![BER vs ADC](input_ber_vs_adc.png)
-
-### BER vs SNR
-![BER vs SNR](input_ber_vs_snr.png)
+<img src="input_ber_vs_adc.png" width="450"/>
 
 ### PAM-4 Symbol Distribution (Post-Equalization)
-![Constellation](input_constellation.png)
+<img src="input_constellation.png" width="350"/>
 
-### Channel Equalizer Taps
-![EQ Taps](input_eq_taps.png)
+### Equalizer Tap Weights
+<img src="input_eq_taps.png" width="350"/>
+
 
 ---
 
@@ -95,11 +94,13 @@ Despite channel noise and quantization, the reconstructed image maintains high v
 
 | Original Image | Reconstructed Image |
 |---------------|---------------------|
-| ![Original](input.png) | ![Reconstructed](input_rec_snr15.0_adc8.png) |
+| <img src="input.png" width="300"/> | <img src="input_rec_snr15.0_adc8.png" width="300"/> |
+
 
 
 ### Error Localization
-![Error Overlay](error_overlay.png)
+<img src="error_overlay.png" width="350"/>
+
 
 The error map highlights pixel locations affected by bit errors, demonstrating how physical-layer impairments translate into localized image artifacts.
 
@@ -121,3 +122,9 @@ The workflow reflects challenges encountered in **high-speed serial links, wirel
 ```bash
 python3 pam4_image_link_industry.py --image input.png --snr_db 15 --adc_bits 8
 python3 pam4_image_link_industry.py --image input.png --do_sweeps
+
+---
+## Image Source Note
+
+The input image used in this project was obtained from publicly available web sources and is used solely for academic and demonstration purposes.
+
