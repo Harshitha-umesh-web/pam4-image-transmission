@@ -76,26 +76,26 @@ Despite channel noise and quantization, the reconstructed image maintains high v
 ## Result Visualizations
 
 ### BER vs ADC Resolution
-![BER vs ADC](results/input_ber_vs_adc.png)
+![BER vs ADC](input_ber_vs_adc.png)
 
 ### BER vs SNR
-![BER vs SNR](results/input_ber_vs_snr.png)
+![BER vs SNR](input_ber_vs_snr.png)
 
 ### PAM-4 Symbol Distribution (Post-Equalization)
-![Constellation](results/input_constellation.png)
+![Constellation](input_constellation.png)
 
 ### Channel Equalizer Taps
-![EQ Taps](results/input_eq_taps.png)
+![EQ Taps](input_eq_taps.png)
 
 ---
 
 ## Image-Level Validation
 
 ### Original vs Reconstructed Image
-![Reconstructed Image](results/input_rec_snr15.0_adc8.png)
+![Reconstructed Image](input_rec_snr15.0_adc8.png)
 
 ### Error Localization
-![Error Overlay](results/error_overlay.png)
+![Error Overlay](error_overlay.png)
 
 The error map highlights pixel locations affected by bit errors, demonstrating how physical-layer impairments translate into localized image artifacts.
 
