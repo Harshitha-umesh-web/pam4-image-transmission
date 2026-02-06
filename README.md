@@ -92,7 +92,11 @@ Despite channel noise and quantization, the reconstructed image maintains high v
 ## Image-Level Validation
 
 ### Original vs Reconstructed Image
-![Reconstructed Image](input_rec_snr15.0_adc8.png)
+
+| Original Image | Reconstructed Image |
+|---------------|---------------------|
+| ![Original](input.png) | ![Reconstructed](input_rec_snr15.0_adc8.png) |
+
 
 ### Error Localization
 ![Error Overlay](error_overlay.png)
