@@ -1,71 +1,119 @@
-# PAM-4 Image Transmission
+# PAM-4 Image Transmission (Python)
 
-This project demonstrates an end-to-end PAM-4 image transmission system to study how real communication impairments affect actual data instead of only random bit streams.
-
-An image is used as the payload so that the impact of noise, inter-symbol interference (ISI), ADC quantization, and equalization can be observed both numerically and visually.
+This project implements an end-to-end PAM-4 image transmission system to study how communication impairments affect real image data. The goal is to bridge concepts from digital communication and signal integrity with practical image-level validation.
 
 ---
 
-## What was implemented
+## Project Overview
 
-The following processing chain was implemented:
+In this project, an RGB image is:
+1. Converted into a binary bitstream
+2. Mapped to PAM-4 symbols
+3. Transmitted through a noisy and ISI-impaired channel
+4. Quantized using a finite-resolution ADC
+5. Equalized and demodulated at the receiver
+6. Reconstructed back into an image
 
-Image → Bitstream generation → PAM-4 symbol mapping  
-→ Pulse shaping → ISI channel → AWGN noise  
-→ ADC quantization → Matched filtering  
-→ Timing phase selection → Feed-forward equalization (FFE)  
-→ Symbol detection → Bit recovery → Image reconstruction
-
----
-
-## Motivation
-
-Most communication simulations use PRBS or random data.  
-Using an image allows visual validation of BER, PSNR, and equalization performance, which better reflects real systems such as display links and high-speed serial interfaces.
+Performance is evaluated using **BER (Bit Error Rate)** and **PSNR (Peak Signal-to-Noise Ratio)**.
 
 ---
 
-## Concepts covered
+## System Features
 
-- PAM-4 modulation and Gray coding  
-- Channel ISI effects  
-- Additive white Gaussian noise (SNR sweep)  
-- ADC resolution trade-offs  
-- Matched filtering and sampling phase selection  
-- Feed-forward equalization (FFE)  
-- BER and PSNR evaluation  
-- Eye diagram and post-equalization scatter analysis  
-- Pixel-level error visualization
+- PAM-4 modulation and demodulation
+- Root Raised Cosine (RRC) pulse shaping
+- Inter-symbol interference (ISI) channel modeling
+- Additive white Gaussian noise (AWGN)
+- ADC quantization (configurable bit resolution)
+- Timing phase selection
+- Linear equalization
+- BER and image-quality evaluation
+
+---
+## System Flow
+
+1. Load input RGB image  
+2. Convert image pixels into a binary bitstream  
+3. Group bits and map them to PAM-4 symbols (2 bits per symbol)  
+4. Apply Root Raised Cosine (RRC) pulse shaping  
+5. Transmit the signal through a channel with:
+   - Additive White Gaussian Noise (AWGN)
+   - Inter-Symbol Interference (ISI)
+6. Receiver processing includes:
+   - Matched filtering
+   - Optimal sampling phase selection
+   - PAM-4 symbol detection
+   - Bit reconstruction
+7. Reconstruct the image from recovered bits  
+8. Evaluate performance using BER and PSNR  
+9. Generate plots and image comparison results  
+ ---
+
+## Example Run Configuration
+
+- Image size: **512 × 512 RGB**
+- Modulation: **PAM-4**
+- SNR: **15 dB**
+- ADC resolution: **8 bits**
+- Oversampling factor: **8 samples/symbol**
+- RRC roll-off factor: **0.25**
+- ISI channel taps: [0.85, 0.35, -0.18, 0.08]
 
 ---
 
-## Results
+## Key Results
 
-The `results/` folder contains:
+- **Bit Error Rate (BER):**  
+  `4.69 × 10⁻⁴`
 
-- BER vs SNR plots  
-- BER vs ADC resolution plots  
-- Eye diagram (matched filter output)  
-- Post-equalization PAM-4 scatter plot  
-- Equalizer tap coefficients  
-- Original vs reconstructed image comparison  
-- Difference heatmap and error overlay
+- **Image Quality (PSNR):**  
+  `39.9 dB`
+
+Despite channel noise and quantization, the reconstructed image maintains high visual fidelity, with errors appearing sparsely and without structural distortion.
 
 ---
 
-## Notes
+## Result Visualizations
 
-- Source code is intentionally not included.
-- This repository focuses on system-level validation and results.
+### BER vs ADC Resolution
+![BER vs ADC](results/input_ber_vs_adc.png)
+
+### BER vs SNR
+![BER vs SNR](results/input_ber_vs_snr.png)
+
+### PAM-4 Symbol Distribution (Post-Equalization)
+![Constellation](results/input_constellation.png)
+
+### Channel Equalizer Taps
+![EQ Taps](results/input_eq_taps.png)
 
 ---
 
-## Relevance
+## Image-Level Validation
 
-This project is relevant to:
-- High-speed serial links (SerDes)
-- Mixed-signal receiver design
-- Hardware validation and PHY-layer analysis
+### Original vs Reconstructed Image
+![Reconstructed Image](results/input_rec_snr15.0_adc8.png)
 
-**Image source:** Publicly available image used for educational purposes.
+### Error Localization
+![Error Overlay](results/error_overlay.png)
 
+The error map highlights pixel locations affected by bit errors, demonstrating how physical-layer impairments translate into localized image artifacts.
+
+---
+
+## Why This Project Matters
+
+This project demonstrates how:
+- Physical-layer impairments impact real data
+- ADC resolution and SNR trade-offs affect system performance
+- Communication metrics (BER) relate to perceptual quality (PSNR)
+
+The workflow reflects challenges encountered in **high-speed serial links, wireline communication, and image data transmission systems**.
+
+---
+
+## How to Run
+
+```bash
+python3 pam4_image_link_industry.py --image input.png --snr_db 15 --adc_bits 8
+python3 pam4_image_link_industry.py --image input.png --do_sweeps
