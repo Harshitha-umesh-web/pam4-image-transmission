@@ -66,3 +66,6 @@ This project is relevant to:
 - High-speed serial links (SerDes)
 - Mixed-signal receiver design
 - Hardware validation and PHY-layer analysis
+
+**Image source:** Publicly available image used for educational purposes.
+
